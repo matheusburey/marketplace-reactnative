@@ -1,9 +1,11 @@
 import { Text, View } from "react-native";
+import Header from "../components/shared/Header";
 
 export default function HomeScreen() {
-  return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
-  );
+	return (
+		<View className="flex-1 bg-background-light dark:bg-background">
+			<Header />
+			<Text>Open up App.tsx to start working on your app!</Text>
+		</View>
+	);
 }

@@ -1,10 +1,18 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-    // NOTE: Update this to include the paths to all of your component files.
-    content: ["./{app,components}/**/*.tsx", "App.tsx"],
-    presets: [require("nativewind/preset")],
-    theme: {
-      extend: {},
+export const content = ["./{app,components}/**/*.tsx", "App.tsx"];
+export const presets = [require("nativewind/preset")];
+export const theme = {
+  extend: {
+    colors: {
+      "primary-text": "#FFFFFF",
+      "secondary-text": "#C0C0C1",
+      "background": "#171717",
+      "background-light": "#222323",
+      "border-color": "#848484",
+      "primary-button": "#5F96ED",
+      "secondary-button": "#4C4C4C",
+      "denounce-button": "#F64348",
     },
-    plugins: [],
-  }
+  },
+};
+export const plugins = [];
