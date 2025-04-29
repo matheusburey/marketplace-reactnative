@@ -1,4 +1,4 @@
-import { Tabs } from "expo-router";
+import { Tabs, useNavigation } from "expo-router";
 import {
 	CirclePlus,
 	House,
@@ -7,8 +7,14 @@ import {
 	User,
 } from "lucide-react-native";
 import { Platform } from "react-native";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function TabLayout() {
+	const { token } = useAuth();
+	const navigation = useNavigation();
+	if (!token) {
+		navigation.reset({ index: 0, routes: [{ name: "index" as never }] });
+	}
 	return (
 		<Tabs
 			initialRouteName="index"

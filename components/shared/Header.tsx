@@ -1,4 +1,5 @@
 import Constants from "expo-constants";
+import { Search } from "lucide-react-native";
 import { Image, TextInput, View } from "react-native";
 
 export default function Header() {
@@ -12,16 +13,12 @@ export default function Header() {
 				resizeMode="contain"
 				source={require("../../assets/images/horizontal-logo.png")}
 			/>
-			<View className="flex-row w-4/6 bg-background rounded content-end items-center">
+			<View className="flex-row w-4/6 bg-background rounded content-end items-center py-2 pr-2">
 				<TextInput
 					placeholder="Pesquisar"
-					className="flex-1 py-0.5 px-3 placeholder:text-secondary-text"
+					className="flex-1 py-0.5 px-3 text-secondary-text placeholder:text-secondary-text"
 				/>
-				<Image
-					className="w-4 mr-2"
-					resizeMode="contain"
-					source={require("../../assets/images/horizontal-logo.png")}
-				/>
+				<Search size={20} color="#C0C0C1" />
 			</View>
 		</View>
 	);
