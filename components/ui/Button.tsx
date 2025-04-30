@@ -1,20 +1,18 @@
 import { TouchableOpacity, Text } from "react-native";
 import { twMerge } from "tailwind-merge";
 
-export default function Button({
-	text,
-	className,
-	onPress,
-}: {
+interface ButtonProps {
 	text: string;
 	className?: string;
 	onPress?: () => void;
-}) {
+}
+
+export default function Button({ text, className, onPress }: ButtonProps) {
 	return (
 		<TouchableOpacity
 			onPress={onPress}
 			className={twMerge(
-				"w-10/12 min-h-10 justify-center items-center bg-primary-button mx-auto rounded-md",
+				"w-full min-h-10 justify-center items-center bg-primary-button mx-auto rounded-md",
 				className,
 			)}
 		>

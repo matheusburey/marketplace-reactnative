@@ -1,12 +1,4 @@
-import {
-	Text,
-	View,
-	Image,
-	TextInput,
-	ScrollView,
-	Alert,
-	TouchableOpacity,
-} from "react-native";
+import { Text, Image, ScrollView, Alert, TouchableOpacity } from "react-native";
 import { useNavigation } from "expo-router";
 import Constants from "expo-constants";
 import Button from "../components/ui/Button";
@@ -56,16 +48,16 @@ export default function LoginScreen() {
 				resizeMode="contain"
 				source={require("../assets/images/logo.png")}
 			/>
-			<Input value={username} onChangeText={setUsername} />
-			<View className="w-full h-12 border border-border-color rounded mx-auto mt-5 bg-background">
-				<TextInput
-					value={password}
-					onChangeText={setPassword}
-					placeholder="Senha"
-					secureTextEntry
-					className="flex-1 px-3 text-xl text-primary-text placeholder:text-secondary-text"
-				/>
-			</View>
+			<Input
+				placeholder="Username"
+				value={username}
+				onChangeText={setUsername}
+			/>
+			<Input
+				placeholder="Password"
+				value={password}
+				onChangeText={setPassword}
+			/>
 
 			<Text className="font-bold mt-2 text-secondary-text text-right text-base">
 				Esqueci minha senha?
