@@ -1,12 +1,22 @@
-import { Text, View, Image, TextInput, ScrollView, Alert } from "react-native";
+import {
+	Text,
+	View,
+	Image,
+	TextInput,
+	ScrollView,
+	Alert,
+	TouchableOpacity,
+} from "react-native";
 import { useNavigation } from "expo-router";
 import Constants from "expo-constants";
 import Button from "../components/ui/Button";
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import type { INavigationProp } from "../types/route";
+import Input from "../components/ui/Input";
 
 export default function LoginScreen() {
-	const navigation = useNavigation();
+	const navigation = useNavigation<INavigationProp>();
 	const { login, token } = useAuth();
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
@@ -33,12 +43,12 @@ export default function LoginScreen() {
 	};
 
 	if (token) {
-		navigation.navigate("(tabs)" as never);
+		navigation.navigate("(tabs)");
 	}
 
 	return (
 		<ScrollView
-			className="flex-1 bg-background-light"
+			className="flex-1 px-6 bg-background-light"
 			style={{ paddingTop: Constants.statusBarHeight + 20 }}
 		>
 			<Image
@@ -46,15 +56,8 @@ export default function LoginScreen() {
 				resizeMode="contain"
 				source={require("../assets/images/logo.png")}
 			/>
-			<View className="w-5/6 h-12 border border-border-color rounded mx-auto mt-5 bg-background">
-				<TextInput
-					value={username}
-					onChangeText={setUsername}
-					placeholder="Username"
-					className="flex-1 px-3 text-xl text-primary-text placeholder:text-secondary-text"
-				/>
-			</View>
-			<View className="w-5/6 h-12 border border-border-color rounded mx-auto mt-5 bg-background">
+			<Input value={username} onChangeText={setUsername} />
+			<View className="w-full h-12 border border-border-color rounded mx-auto mt-5 bg-background">
 				<TextInput
 					value={password}
 					onChangeText={setPassword}
@@ -64,10 +67,21 @@ export default function LoginScreen() {
 				/>
 			</View>
 
-			<Text className="font-bold mt-1 text-secondary-text text-right text-base mr-[10%]">
+			<Text className="font-bold mt-2 text-secondary-text text-right text-base">
 				Esqueci minha senha?
 			</Text>
-			<Button onPress={handleLogin} text="Entrar" className="mt-5" />
+			<Button onPress={handleLogin} text="Entrar" className="mt-8" />
+			<TouchableOpacity
+				className="mt-5 flex-row items-center justify-center gap-1"
+				onPress={() => navigation.navigate("register")}
+			>
+				<Text className="text-secondary-text text-sm">
+					Voce ainda nao possui uma conta?
+				</Text>
+				<Text className="font-bold text-primary-text text-sm">
+					Registre-se aqui!
+				</Text>
+			</TouchableOpacity>
 		</ScrollView>
 	);
 }
