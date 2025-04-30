@@ -2,7 +2,7 @@ import { Text, Image, ScrollView, Alert, TouchableOpacity } from "react-native";
 import { useNavigation } from "expo-router";
 import Constants from "expo-constants";
 import Button from "../components/ui/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import type { INavigationProp } from "../types/route";
 import Input from "../components/ui/Input";
@@ -10,16 +10,16 @@ import Input from "../components/ui/Input";
 export default function LoginScreen() {
 	const navigation = useNavigation<INavigationProp>();
 	const { login, token } = useAuth();
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
+	const [email, setEmail] = useState("testeBr@gmail.com");
+	const [password, setPassword] = useState("1234");
 
 	const handleLogin = async () => {
 		try {
-			if (!username || !password) {
+			if (!email || !password) {
 				Alert.alert("Preencha todos os campos");
 				return;
 			}
-			await login({ username, password });
+			await login({ email, password });
 			navigation.navigate("(tabs)" as never);
 			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 		} catch (error: any) {
@@ -29,14 +29,16 @@ export default function LoginScreen() {
 				Alert.alert("Sem conexão com o servidor");
 			}
 			if (error?.status === 400) {
-				Alert.alert("Username ou senha inválidos");
+				Alert.alert("Email ou senha inválidos");
 			}
 		}
 	};
 
-	if (token) {
-		navigation.navigate("(tabs)");
-	}
+	useEffect(() => {
+		if (token) {
+			navigation.navigate("(tabs)");
+		}
+	}, [token, navigation]);
 
 	return (
 		<ScrollView
@@ -48,14 +50,11 @@ export default function LoginScreen() {
 				resizeMode="contain"
 				source={require("../assets/images/logo.png")}
 			/>
+			<Input placeholder="Email" value={email} onChangeText={setEmail} />
 			<Input
-				placeholder="Username"
-				value={username}
-				onChangeText={setUsername}
-			/>
-			<Input
-				placeholder="Password"
+				placeholder="Senha"
 				value={password}
+				secureTextEntry
 				onChangeText={setPassword}
 			/>
 

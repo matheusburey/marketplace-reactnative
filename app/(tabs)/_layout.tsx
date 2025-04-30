@@ -8,13 +8,19 @@ import {
 } from "lucide-react-native";
 import { Platform } from "react-native";
 import { useAuth } from "../../contexts/AuthContext";
+import type { INavigationProp } from "../../types/route";
+import { useEffect } from "react";
 
 export default function TabLayout() {
 	const { token } = useAuth();
-	const navigation = useNavigation();
-	if (!token) {
-		navigation.reset({ index: 0, routes: [{ name: "index" as never }] });
-	}
+	const navigation = useNavigation<INavigationProp>();
+
+	useEffect(() => {
+		if (!token) {
+			navigation.reset({ index: 0, routes: [{ name: "index" }] });
+		}
+	}, [token, navigation]);
+
 	return (
 		<Tabs
 			initialRouteName="index"

@@ -1,22 +1,24 @@
-import { View, FlatList } from "react-native";
-import Header from "../../components/shared/Header";
-import { getProducts } from "../../services/products";
+import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import ProductCard from "../../components/shared/ProductCard";
+import { getProducts } from "../services/products";
+import Header from "../components/shared/Header";
+import ProductCard from "../components/shared/ProductCard";
+import { FlatList, View } from "react-native";
 
-export default function HomeScreen() {
+export default function SearchScreen() {
+	const { query } = useLocalSearchParams();
 	const [products, setProducts] = useState<Product[]>([]);
 
 	useEffect(() => {
 		(async () => {
 			try {
-				const data = await getProducts();
+				const data = await getProducts(query as string);
 				setProducts(data);
 			} catch (error) {
 				console.error(error);
 			}
 		})();
-	}, []);
+	}, [query]);
 
 	return (
 		<View className="flex-1 bg-background-light dark:bg-background">

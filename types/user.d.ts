@@ -7,12 +7,13 @@ interface IUser {
 }
 
 interface IRegisterUserParams {
-	username: string;
+	name: string;
 	email: string;
 	password: string;
+	avatar: string;
 }
 
 interface ILoginParams {
-	username: string;
+	email: string;
 	password: string;
 }

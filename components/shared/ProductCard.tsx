@@ -2,7 +2,6 @@ import { Heart } from "lucide-react-native";
 import { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import Rating from "../ui/Rating";
-import type { Product } from "../../types/product";
 
 interface ProductListProps {
 	product: Product;
@@ -22,7 +21,7 @@ export default function ProductCard({ product }: ProductListProps) {
 			<Image
 				className="w-32 rounded-l-md"
 				resizeMode="cover"
-				source={{ uri: product.image }}
+				source={{ uri: product.images[0] }}
 			/>
 			<View className="flex-1 rounded-r-md border border-border-color p-2 justify-between">
 				<View>
@@ -37,9 +36,9 @@ export default function ProductCard({ product }: ProductListProps) {
 				<View className="flex-row justify-between items-end">
 					<View>
 						<Text className="text-secondary-text font-bold text-sm mb-2">
-							{product.category}
+							{product.category.name}
 						</Text>
-						<Rating rate={product.rating.rate} />
+						<Rating rate={product.rating || 3} />
 					</View>
 					<TouchableOpacity onPress={() => setIsFavorite(!isFavorite)}>
 						<Heart fill={isFavorite ? "#F64348" : "#4C4C4C"} size={30} />

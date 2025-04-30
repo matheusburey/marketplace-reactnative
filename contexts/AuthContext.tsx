@@ -6,7 +6,12 @@ import {
 	useEffect,
 	useState,
 } from "react";
-import { getUserData, loginService, registerUser } from "../services/user";
+import {
+	getProfile,
+	getUserData,
+	loginService,
+	registerUser,
+} from "../services/user";
 import { Alert } from "react-native";
 
 interface IAuthState {
@@ -57,15 +62,16 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
 	async function login(params: ILoginParams) {
 		const res = await loginService(params);
+		const token = res.data.access_token;
 
-		const resUser = await getUserData(1);
+		const resUser = await getProfile(token);
 
 		setState((e) => ({
 			...e,
 			user: resUser.data,
-			token: res.data.token,
+			token,
 		}));
-		await SecureStore.setItemAsync("marketplace-token", res.data.token);
+		await SecureStore.setItemAsync("marketplace-token", token);
 		await SecureStore.setItemAsync(
 			"marketplace-user",
 			JSON.stringify(resUser.data),
@@ -73,21 +79,23 @@ export function AuthProvider({ children }: PropsWithChildren) {
 	}
 
 	async function register(params: IRegisterUserParams) {
-		await registerUser(params);
-		const res = await loginService({ username: "johnd", password: "m38rmF$" });
-		const resUser = await getUserData(1);
+		const resUser = await registerUser(params);
+		const res = await loginService({
+			email: params.email,
+			password: params.password,
+		});
 
 		setState((e) => ({
 			...e,
 			user: resUser.data,
-			token: res.data.token,
+			token: res.data.access_token,
 		}));
 		console.log({
 			user: resUser.data,
-			token: res.data.token,
+			token: res.data.access_token,
 		});
 
-		await SecureStore.setItemAsync("marketplace-token", res.data.token);
+		await SecureStore.setItemAsync("marketplace-token", res.data.access_token);
 		await SecureStore.setItemAsync(
 			"marketplace-user",
 			JSON.stringify(resUser.data),

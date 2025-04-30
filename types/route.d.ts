@@ -4,6 +4,7 @@ type IRoute = {
 	index: undefined;
 	register: undefined;
 	"(tabs)": undefined;
+	search: { query: string };
 };
 
 type INavigationProp = NativeStackNavigationProp<IRoute>;

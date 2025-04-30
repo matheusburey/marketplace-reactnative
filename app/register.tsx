@@ -12,14 +12,15 @@ export default function RegisterScreen() {
 	const navigation = useNavigation<INavigationProp>();
 	const { register, token } = useAuth();
 	const [form, setForm] = useState<IRegisterUserParams>({
-		username: "",
+		name: "",
 		email: "",
 		password: "",
+		avatar: "",
 	});
 
 	const handleRegister = async () => {
 		try {
-			if (!form.username || !form.email || !form.password) {
+			if (!form.name || !form.email || !form.password) {
 				Alert.alert("Preencha todos os campos");
 				return;
 			}
@@ -29,10 +30,6 @@ export default function RegisterScreen() {
 			Alert.alert("Sem conexão com o servidor");
 		}
 	};
-
-	if (token) {
-		navigation.navigate("(tabs)");
-	}
 
 	return (
 		<ScrollView
@@ -50,9 +47,9 @@ export default function RegisterScreen() {
 				Registre-se
 			</Text>
 			<Input
-				placeholder="Username"
-				value={form.username}
-				onChangeText={(text) => setForm({ ...form, username: text })}
+				placeholder="Nome"
+				value={form.name}
+				onChangeText={(text) => setForm({ ...form, name: text })}
 			/>
 			<Input
 				placeholder="Email"
@@ -60,7 +57,7 @@ export default function RegisterScreen() {
 				onChangeText={(text) => setForm({ ...form, email: text })}
 			/>
 			<Input
-				placeholder="Password"
+				placeholder="Senha"
 				value={form.password}
 				secureTextEntry
 				onChangeText={(text) => setForm({ ...form, password: text })}
