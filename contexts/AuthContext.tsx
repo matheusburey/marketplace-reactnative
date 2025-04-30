@@ -55,37 +55,10 @@ export function AuthProvider({ children }: PropsWithChildren) {
 		bootstrapAsync();
 	}, []);
 
-	async function manageIdentity(username: string, id?: number) {
-		type Identity = { [username: string]: number };
-		const KEY = "marketplace-identity";
-
-		const listIdentity = await SecureStore.getItemAsync(KEY);
-
-		if (listIdentity && id) {
-			const identities: Identity = JSON.parse(listIdentity);
-			identities[username] = id;
-			await SecureStore.setItemAsync(KEY, JSON.stringify(identities));
-			return;
-		}
-
-		if (listIdentity && !id) {
-			const identities: Identity = JSON.parse(listIdentity);
-			return identities[username];
-		}
-
-		if (!listIdentity && id) {
-			const identities = { [username]: id };
-
-			await SecureStore.setItemAsync(KEY, JSON.stringify(identities));
-			return;
-		}
-	}
-
 	async function login(params: ILoginParams) {
 		const res = await loginService(params);
 
-		const userId = await manageIdentity(params.username);
-		const resUser = await getUserData(userId || 1);
+		const resUser = await getUserData(1);
 
 		setState((e) => ({
 			...e,
@@ -100,24 +73,24 @@ export function AuthProvider({ children }: PropsWithChildren) {
 	}
 
 	async function register(params: IRegisterUserParams) {
-		const dataUser = await registerUser(params);
-
-		const res = await loginService({
-			username: params.username,
-			password: params.password,
-		});
+		await registerUser(params);
+		const res = await loginService({ username: "johnd", password: "m38rmF$" });
+		const resUser = await getUserData(1);
 
 		setState((e) => ({
 			...e,
-			user: dataUser.data,
+			user: resUser.data,
 			token: res.data.token,
 		}));
+		console.log({
+			user: resUser.data,
+			token: res.data.token,
+		});
 
-		await manageIdentity(params.username, dataUser.data.id);
 		await SecureStore.setItemAsync("marketplace-token", res.data.token);
 		await SecureStore.setItemAsync(
 			"marketplace-user",
-			JSON.stringify(dataUser.data),
+			JSON.stringify(resUser.data),
 		);
 	}
 
