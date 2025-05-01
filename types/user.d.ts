@@ -13,6 +13,11 @@ interface IRegisterUserParams {
 	avatar: string;
 }
 
+interface IResponseLoginData {
+	access_token: string;
+	refresh_token: string;
+}
+
 interface ILoginParams {
 	email: string;
 	password: string;

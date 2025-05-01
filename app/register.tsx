@@ -15,7 +15,8 @@ export default function RegisterScreen() {
 		name: "",
 		email: "",
 		password: "",
-		avatar: "",
+		avatar:
+			"https://robohash.org/7fcedf4d8fef7a2ad28cf223282863c9?set=set4&bgset=&size=400x400", // TODO: Implementar upload de imagem
 	});
 
 	const handleRegister = async () => {

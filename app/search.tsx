@@ -7,7 +7,7 @@ import { FlatList, View } from "react-native";
 
 export default function SearchScreen() {
 	const { query } = useLocalSearchParams();
-	const [products, setProducts] = useState<Product[]>([]);
+	const [products, setProducts] = useState<IProduct[]>([]);
 
 	useEffect(() => {
 		(async () => {

@@ -1,4 +1,4 @@
-interface Category {
+interface ICategory {
 	id: number;
 	name: string;
 	slug: string;
@@ -6,7 +6,16 @@ interface Category {
 	creationAt: string;
 	updatedAt: string;
 }
-interface Product {
+
+interface ICreateProductParams {
+	title: string;
+	description: string;
+	price: number;
+	categoryId: number;
+	images: string[];
+}
+
+interface IProduct {
 	id: number;
 	title: string;
 	slug: string;

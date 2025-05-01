@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import ProductCard from "../../components/shared/ProductCard";
 
 export default function HomeScreen() {
-	const [products, setProducts] = useState<Product[]>([]);
+	const [products, setProducts] = useState<IProduct[]>([]);
 
 	useEffect(() => {
 		(async () => {
