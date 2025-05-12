@@ -1,17 +1,18 @@
+import { useEffect, useState } from "react";
 import { Text, Image, ScrollView, Alert, TouchableOpacity } from "react-native";
 import { useNavigation } from "expo-router";
 import Constants from "expo-constants";
 import Button from "../components/ui/Button";
-import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import type { INavigationProp } from "../types/route";
 import Input from "../components/ui/Input";
+import type { AxiosError } from "axios";
 
 export default function LoginScreen() {
 	const navigation = useNavigation<INavigationProp>();
 	const { login, token } = useAuth();
-	const [email, setEmail] = useState("testeBr@gmail.com");
-	const [password, setPassword] = useState("1234");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 
 	const handleLogin = async () => {
 		try {
@@ -21,16 +22,13 @@ export default function LoginScreen() {
 			}
 			await login({ email, password });
 			navigation.navigate("(tabs)" as never);
-			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-		} catch (error: any) {
-			console.log("Error on login:", error?.message);
-			console.log("Error on login:", JSON.stringify(error));
-			if (error?.message === "Network Error") {
-				Alert.alert("Sem conexão com o servidor");
+		} catch (error) {
+			const err = error as AxiosError<{ status?: number }>;
+			if (err?.status === 404) {
+				return Alert.alert("Email ou senha inválidos");
 			}
-			if (error?.status === 400) {
-				Alert.alert("Email ou senha inválidos");
-			}
+
+			return Alert.alert("Estamos com problemas tente novamente mais tarde");
 		}
 	};
 

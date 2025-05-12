@@ -10,18 +10,17 @@ import Input from "../components/ui/Input";
 
 export default function RegisterScreen() {
 	const navigation = useNavigation<INavigationProp>();
-	const { register, token } = useAuth();
+	const { register } = useAuth();
 	const [form, setForm] = useState<IRegisterUserParams>({
 		name: "",
 		email: "",
 		password: "",
-		avatar:
-			"https://robohash.org/7fcedf4d8fef7a2ad28cf223282863c9?set=set4&bgset=&size=400x400", // TODO: Implementar upload de imagem
+		phone_number: "",
 	});
 
 	const handleRegister = async () => {
 		try {
-			if (!form.name || !form.email || !form.password) {
+			if (!form.name || !form.email || !form.password || !form.phone_number) {
 				Alert.alert("Preencha todos os campos");
 				return;
 			}
@@ -39,7 +38,7 @@ export default function RegisterScreen() {
 		>
 			<TouchableOpacity
 				activeOpacity={0.7}
-				className="ml-4"
+				className="ml-2"
 				onPress={() => navigation.goBack()}
 			>
 				<ArrowLeft size={30} color="white" />
@@ -55,6 +54,7 @@ export default function RegisterScreen() {
 			<Input
 				placeholder="Email"
 				value={form.email}
+				keyboardType="email-address"
 				onChangeText={(text) => setForm({ ...form, email: text })}
 			/>
 			<Input
@@ -62,6 +62,13 @@ export default function RegisterScreen() {
 				value={form.password}
 				secureTextEntry
 				onChangeText={(text) => setForm({ ...form, password: text })}
+			/>
+			<Input
+				placeholder="Telefone"
+				value={form.phone_number}
+				keyboardType="phone-pad"
+				maxLength={11}
+				onChangeText={(text) => setForm({ ...form, phone_number: text })}
 			/>
 
 			<Button onPress={handleRegister} text="Registrar" className="mt-14" />

@@ -3,7 +3,7 @@ import { useNavigation } from "expo-router";
 import { Search } from "lucide-react-native";
 import { useState } from "react";
 import { Image, TextInput, View } from "react-native";
-import type { INavigationProp } from "../../types/route";
+import type { INavigationProp } from "../../src/types/route";
 
 export default function Header() {
 	const navigation = useNavigation<INavigationProp>();

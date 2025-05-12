@@ -6,7 +6,7 @@ import {
 	useEffect,
 	useState,
 } from "react";
-import { getProfile, loginService, postUser } from "../services/user";
+import { getProfile, loginService, postUser } from "@/services/user";
 
 interface IAuthState {
 	user: IUser | null;
@@ -55,35 +55,20 @@ export function AuthProvider({ children }: PropsWithChildren) {
 	}, []);
 
 	async function login(params: ILoginParams) {
-		const res = await loginService(params);
-		const token = res.access_token;
+		const user = await loginService(params);
 
-		const resUser = await getProfile(token);
-
-		setState((e) => ({
-			...e,
-			user: resUser,
-			token,
-		}));
-		await SecureStore.setItemAsync("marketplace-token", token);
-		await SecureStore.setItemAsync("marketplace-user", JSON.stringify(resUser));
+		setState((e) => ({ ...e, user, token: "token" }));
+		await SecureStore.setItemAsync("marketplace-token", "token");
+		await SecureStore.setItemAsync("marketplace-user", JSON.stringify(user));
 	}
 
 	async function register(params: IRegisterUserParams) {
-		const resUser = await postUser(params);
-		const res = await loginService({
-			email: params.email,
-			password: params.password,
-		});
+		const user = await postUser(params);
 
-		setState((e) => ({
-			...e,
-			user: resUser,
-			token: res.access_token,
-		}));
+		setState((e) => ({ ...e, user, token: "token" }));
 
-		await SecureStore.setItemAsync("marketplace-token", res.access_token);
-		await SecureStore.setItemAsync("marketplace-user", JSON.stringify(resUser));
+		await SecureStore.setItemAsync("marketplace-token", "token");
+		await SecureStore.setItemAsync("marketplace-user", JSON.stringify(user));
 	}
 
 	async function logout() {

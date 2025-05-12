@@ -17,11 +17,9 @@ export async function postUser(params: IRegisterUserParams): Promise<IUser> {
 	return res.data;
 }
 
-export async function loginService(
-	params: ILoginParams,
-): Promise<IResponseLoginData> {
-	const res = await api.post("/auth/login", params);
-	return res.data;
+export async function loginService(params: ILoginParams): Promise<IUser> {
+	const res = await api.get("/users", { params });
+	return res.data[0];
 }
 
 export async function RefreshingToken(

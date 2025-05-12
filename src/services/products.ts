@@ -12,3 +12,8 @@ export async function postProduct(
 	const res = await api.post("/products", params);
 	return res.data;
 }
+
+export async function getCategories(): Promise<ICategory[]> {
+	const res = await api.get("/categories");
+	return res.data;
+}

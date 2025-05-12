@@ -10,8 +10,8 @@ interface ICategory {
 interface ICreateProductParams {
 	title: string;
 	description: string;
-	price: number;
-	categoryId: number;
+	price: string;
+	categoryId: string;
 	images: string[];
 }
 

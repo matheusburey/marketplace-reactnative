@@ -1,7 +1,8 @@
-import { StatusBar } from "expo-status-bar";
-import "../assets/global.css";
+import "@/assets/global.css";
 
+import { StatusBar } from "expo-status-bar";
 import { Stack } from "expo-router";
+
 import { AuthProvider } from "../contexts/AuthContext";
 
 export default function RootLayout() {
@@ -13,12 +14,7 @@ export default function RootLayout() {
 					contentStyle: { backgroundColor: "transparent" },
 					animation: "fade",
 				}}
-			>
-				<Stack.Screen name="index" />
-				<Stack.Screen name="register" />
-				<Stack.Screen name="search" />
-				<Stack.Screen name="(tabs)" />
-			</Stack>
+			/>
 			<StatusBar style="auto" />
 		</AuthProvider>
 	);

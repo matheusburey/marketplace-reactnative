@@ -10,7 +10,7 @@ interface IRegisterUserParams {
 	name: string;
 	email: string;
 	password: string;
-	avatar: string;
+	phone_number: string;
 }
 
 interface IResponseLoginData {
