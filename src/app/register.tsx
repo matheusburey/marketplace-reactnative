@@ -1,15 +1,13 @@
 import { Text, ScrollView, Alert, TouchableOpacity } from "react-native";
-import { useNavigation } from "expo-router";
+import { router } from "expo-router";
 import Constants from "expo-constants";
 import Button from "../components/ui/Button";
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { ArrowLeft } from "lucide-react-native";
-import type { INavigationProp } from "../types/route";
 import Input from "../components/ui/Input";
 
 export default function RegisterScreen() {
-	const navigation = useNavigation<INavigationProp>();
 	const { register } = useAuth();
 	const [form, setForm] = useState<IRegisterUserParams>({
 		name: "",
@@ -25,7 +23,7 @@ export default function RegisterScreen() {
 				return;
 			}
 			await register(form);
-			navigation.navigate("(tabs)" as never);
+			router.push("(tabs)");
 		} catch (error) {
 			Alert.alert("Sem conexão com o servidor");
 		}
@@ -39,7 +37,7 @@ export default function RegisterScreen() {
 			<TouchableOpacity
 				activeOpacity={0.7}
 				className="ml-2"
-				onPress={() => navigation.goBack()}
+				onPress={() => router.back()}
 			>
 				<ArrowLeft size={30} color="white" />
 			</TouchableOpacity>

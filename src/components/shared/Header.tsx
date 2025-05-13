@@ -1,16 +1,15 @@
 import Constants from "expo-constants";
-import { useNavigation } from "expo-router";
+import { router, useNavigation } from "expo-router";
 import { Search } from "lucide-react-native";
 import { useState } from "react";
 import { Image, TextInput, View } from "react-native";
-import type { INavigationProp } from "../../src/types/route";
 
 export default function Header() {
-	const navigation = useNavigation<INavigationProp>();
+	const navigation = useNavigation();
 	const [search, setSearch] = useState("");
 
 	function handleSearch() {
-		navigation.navigate("search", { query: search });
+		router.push(`/search?query=${search}`);
 		setSearch("");
 	}
 
@@ -20,9 +19,9 @@ export default function Header() {
 			className="flex-row w-full h-24 px-5 items-center justify-between"
 		>
 			<Image
-				className="w-24"
+				className="w-20"
 				resizeMode="contain"
-				source={require("../../assets/images/horizontal-logo.png")}
+				source={require("@/assets/images/app-icon.png")}
 			/>
 			<View className="flex-row w-4/6 bg-background rounded content-end items-center py-2 pr-2">
 				<TextInput

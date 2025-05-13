@@ -1,15 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Text, Image, ScrollView, Alert, TouchableOpacity } from "react-native";
-import { useNavigation } from "expo-router";
+import { Redirect, router } from "expo-router";
 import Constants from "expo-constants";
 import Button from "../components/ui/Button";
 import { useAuth } from "../contexts/AuthContext";
-import type { INavigationProp } from "../types/route";
 import Input from "../components/ui/Input";
 import type { AxiosError } from "axios";
 
 export default function LoginScreen() {
-	const navigation = useNavigation<INavigationProp>();
 	const { login, token } = useAuth();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -21,7 +19,7 @@ export default function LoginScreen() {
 				return;
 			}
 			await login({ email, password });
-			navigation.navigate("(tabs)" as never);
+			router.push("(tabs)");
 		} catch (error) {
 			const err = error as AxiosError<{ status?: number }>;
 			if (err?.status === 404) {
@@ -32,11 +30,9 @@ export default function LoginScreen() {
 		}
 	};
 
-	useEffect(() => {
-		if (token) {
-			navigation.navigate("(tabs)");
-		}
-	}, [token, navigation]);
+	if (token) {
+		return <Redirect href="(tabs)" />;
+	}
 
 	return (
 		<ScrollView
@@ -62,7 +58,7 @@ export default function LoginScreen() {
 			<Button onPress={handleLogin} text="Entrar" className="mt-8" />
 			<TouchableOpacity
 				className="mt-5 flex-row items-center justify-center gap-1"
-				onPress={() => navigation.navigate("register")}
+				onPress={() => router.push("register")}
 			>
 				<Text className="text-secondary-text text-sm">
 					Voce ainda nao possui uma conta?
