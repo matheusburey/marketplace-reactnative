@@ -11,7 +11,7 @@ export default function ProfileInfo() {
 						<Text className="font-bold text-xl text-primary-text">Matheus</Text>
 						<Text className="text-lg text-primary-text">11 99999-9999</Text>
 					</View>
-					<Rating rate={3} />
+					<Rating rate={3} size={20} />
 				</View>
 				<Text className="text-sm font-bold text-primary-text">
 					usuário desde 2022

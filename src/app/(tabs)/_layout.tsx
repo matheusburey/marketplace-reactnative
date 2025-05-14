@@ -1,4 +1,4 @@
-import { Tabs, useNavigation } from "expo-router";
+import { Redirect, Tabs } from "expo-router";
 import {
 	CirclePlus,
 	House,
@@ -8,18 +8,13 @@ import {
 } from "lucide-react-native";
 import { Platform } from "react-native";
 import { useAuth } from "../../contexts/AuthContext";
-import type { INavigationProp } from "../../types/route";
-import { useEffect } from "react";
 
 export default function TabLayout() {
 	const { token } = useAuth();
-	const navigation = useNavigation<INavigationProp>();
 
-	useEffect(() => {
-		if (!token) {
-			navigation.reset({ index: 0, routes: [{ name: "index" }] });
-		}
-	}, [token, navigation]);
+	if (!token) {
+		return <Redirect href="/login" />;
+	}
 
 	return (
 		<Tabs

@@ -1,7 +1,10 @@
 import { Star } from "lucide-react-native";
 import { View } from "react-native";
 
-export default function Rating({ rate }: { rate: number }) {
+export default function Rating({
+	rate,
+	size = 15,
+}: { rate: number; size?: number }) {
 	const fullStars = Math.round(rate);
 	const numberStars = Array.from({ length: 5 }, (_, index) => index);
 	return (
@@ -11,7 +14,7 @@ export default function Rating({ rate }: { rate: number }) {
 					key={i}
 					fill={i < fullStars ? "yellow" : "none"}
 					color="yellow"
-					size={15}
+					size={size}
 				/>
 			))}
 		</View>
