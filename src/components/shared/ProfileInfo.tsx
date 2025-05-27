@@ -20,7 +20,6 @@ export default function ProfileInfo() {
 					150 publicações
 				</Text>
 			</View>
-			<View className="w-11/12 mx-auto h-px bg-border-color my-5" />
 		</>
 	);
 }

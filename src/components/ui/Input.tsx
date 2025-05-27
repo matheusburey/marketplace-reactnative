@@ -9,13 +9,13 @@ export default function Input({ className, editable, ...rest }: InputProps) {
 	return (
 		<View
 			className={twMerge(
-				"w-full h-12 border border-border-color rounded mx-auto mt-5",
+				"w-full h-12 border border-border-color rounded mx-auto mt-5 px-3",
 				editable ? "bg-background" : "bg-transparent",
 				className,
 			)}
 		>
 			<TextInput
-				className="flex-1 px-3 text-xl text-primary-text placeholder:text-secondary-text"
+				className="flex-1 text-xl text-primary-text placeholder:text-secondary-text"
 				editable={editable}
 				{...rest}
 			/>

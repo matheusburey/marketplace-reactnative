@@ -4,6 +4,7 @@ import { Edit2 } from "lucide-react-native";
 import { router } from "expo-router";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
+import Dropdown from "../ui/Dropdown";
 
 export default function UserProfileForm() {
 	const [edit, setEdit] = useState(false);
@@ -22,24 +23,31 @@ export default function UserProfileForm() {
 			<Input value="email" editable={edit} />
 			<Input value="11 99999-9999" editable={edit} />
 			<Input placeholder="Senha" value="" secureTextEntry editable={edit} />
-			<Input
-				placeholder="Nova Senha"
-				value=""
-				secureTextEntry
-				editable={edit}
-			/>
-			<Input
-				placeholder="Confirmar Senha"
-				value=""
-				secureTextEntry
-				editable={edit}
-			/>
 			{edit && (
-				<Button
-					className="mt-5"
-					text="Salvar"
-					onPress={() => Alert.alert("Salvar")}
-				/>
+				<>
+					<Input
+						placeholder="Nova Senha"
+						value=""
+						secureTextEntry
+						editable={edit}
+					/>
+					<Input
+						placeholder="Confirmar Senha"
+						value=""
+						secureTextEntry
+						editable={edit}
+					/>
+					<Dropdown
+						listItems={[{ value: "java", label: "Java" }]}
+						enabled={edit}
+					/>
+
+					<Button
+						className="mt-5"
+						text="Salvar"
+						onPress={() => Alert.alert("Salvar")}
+					/>
+				</>
 			)}
 			<Button
 				className="mt-5 bg-transparent"
