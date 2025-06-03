@@ -6,13 +6,6 @@ export async function getProducts(title?: string): Promise<IProduct[]> {
 	return res.data;
 }
 
-export async function postProduct(
-	params: ICreateProductParams,
-): Promise<IProduct> {
-	const res = await api.post("/products", params);
-	return res.data;
-}
-
 export async function getCategories(): Promise<ICategory[]> {
 	const res = await api.get("/categories");
 	return res.data;
