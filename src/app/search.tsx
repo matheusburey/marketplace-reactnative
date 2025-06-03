@@ -6,19 +6,19 @@ import ProductCard from "../components/shared/ProductCard";
 import { FlatList, View } from "react-native";
 
 export default function SearchScreen() {
-	const { query } = useLocalSearchParams();
+	const { query, category } = useLocalSearchParams();
 	const [products, setProducts] = useState<IProduct[]>([]);
 
 	useEffect(() => {
 		(async () => {
 			try {
-				const data = await getProducts(query as string);
+				const data = await getProducts(query as string, category as string);
 				setProducts(data);
 			} catch (error) {
 				console.error(error);
 			}
 		})();
-	}, [query]);
+	}, [query, category]);
 
 	return (
 		<View className="flex-1 bg-background-light dark:bg-background">
